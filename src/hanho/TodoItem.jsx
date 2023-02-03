@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import { MdDone, MdDelete } from 'react-icons/md';
-import { useTodoDispatch } from './TodoContext';
+import { useTodoDispatch } from './TodoProvider';
 
 const Remove = styled.div`
   display: flex;
@@ -58,16 +58,48 @@ const Text = styled.div`
     `}
 `;
 
-function TodoItem({ id, done, text }) {
+function TodoItem({ id, done, text, edit }) {
+
+  const [ open, setOpen ] = useState(false);
+  const [ value, setValue ] = useState(text);
+
   const dispatch = useTodoDispatch();
   const onToggle = () => dispatch({ type: 'TOGGLE', id });
   const onRemove = () => dispatch({ type: 'REMOVE', id });
+
+  const onEdit = () => { setOpen( !open ); console.log("CHANGE"); }
+  const onChange = e => { setValue( e.target.value ); }
+  const onSubmit = e => {
+    console.log(e.keyCode)
+    if( e.keyCode === 13 ) {
+      console.log(1);
+      dispatch({
+        type: 'UPDATE',
+        payload: {
+          id: id,
+          text: value,
+          done: done,
+          edit: false
+        }
+      })
+      setOpen( !open );
+    }else{
+      setValue( e.target.value )
+    }
+  }
+
   return (
     <TodoItemBlock>
       <CheckCircle done={done} onClick={onToggle}>
         {done && <MdDone />}
       </CheckCircle>
-      <Text done={done}>{text}</Text>
+      <Text done={done} onClick={onEdit} open={open}>{text}</Text>
+      {
+        open && (
+          <div>
+            <input onChange={onChange} onKeyDown={onSubmit} value={value} />
+          </div>
+      )}
       <Remove onClick={onRemove}>
         <MdDelete />
       </Remove>

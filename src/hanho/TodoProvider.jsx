@@ -4,17 +4,20 @@ const initialTodos = [
   {
     id: 1,
     text: 'Create Project',
-    done: true
+    done: true,
+    edit: false
   },
   {
     id: 2,
     text: 'Styling Component',
-    done: true
+    done: true,
+    edit: false
   },
   {
     id: 3,
     text: 'Create Context',
-    done: false
+    done: false,
+    edit: false
   },
   {
     id: 4,
@@ -30,6 +33,16 @@ function todoReducer(state, action) {
     case 'TOGGLE':
       return state.map(todo =>
         todo.id === action.id ? { ...todo, done: !todo.done } : todo
+      );
+    case 'EDIT':
+      return state.map(todo =>
+        todo.id === action.id ? { ...todo, edit: !todo.edit } : todo
+      );
+    case 'UPDATE':
+      console.log("UPDATE")
+      console.log(action);
+      return state.map(todo =>
+        todo.id === action.payload.id ? { ...todo, text: action.payload.text, done: action.payload.done, edit: action.payload.edit } : todo
       );
     case 'REMOVE':
       return state.filter(todo => todo.id !== action.id);

@@ -1,6 +1,6 @@
 
 import { createGlobalStyle } from 'styled-components'
-import { TodoProvider } from './hanho/TodoContext'
+import { TodoProvider } from './hanho/TodoProvider'
 import TodoCreate from './hanho/TodoCreate'
 import TodoHead from './hanho/TodoHead'
 import TodoList from './hanho/TodoList'

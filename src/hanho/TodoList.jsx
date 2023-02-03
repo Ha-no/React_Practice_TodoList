@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import TodoItem from './TodoItem';
-import { useTodoState } from './TodoContext';
+import { useTodoState } from './TodoProvider';
 
 const TodoListBlock = styled.div`
   flex: 1;
@@ -16,12 +16,15 @@ function TodoList() {
   return (
     <TodoListBlock>
       {todos.map(todo => (
-        <TodoItem
-          key={todo.id}
-          id={todo.id}
-          text={todo.text}
-          done={todo.done}
-        />
+        <>
+          <TodoItem 
+            key={todo.id}
+            id={todo.id}
+            text={todo.text}
+            done={todo.done}
+            edit={todo.edit}
+          />
+        </>
       ))}
     </TodoListBlock>
   );

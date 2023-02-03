@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import { MdAdd } from 'react-icons/md';
-import { useTodoDispatch, useTodoNextId } from './TodoContext';
+import { useTodoDispatch, useTodoNextId } from './TodoProvider';
 
 const CircleButton = styled.button`
   background: #38d9a9;
@@ -95,7 +95,8 @@ function TodoCreate() {
         todo: {
         id: nextId.current,
         text: value,
-        done: false
+        done: false,
+        edit: flase
         }
     });
     setValue('');
@@ -130,5 +131,3 @@ function TodoCreate() {
 
 // TodoCreat 가 변경되었을때 해당 State만 변경하도록 memo를 붙임
 export default React.memo(TodoCreate);
-
-// ㅠㅠ
