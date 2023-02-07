@@ -39,15 +39,11 @@ function todoReducer(state, action) {
         return state.map(todo =>
           todo.id === action.id ? { ...todo, done: !todo.done } : todo
         );
-      case 'EDIT':
-        return state.map(todo =>
-          todo.id === action.id ? { ...todo, edit: !todo.edit } : todo
-        );
       case 'UPDATE':
         console.log("UPDATE")
         console.log(action);
         return state.map(todo =>
-          todo.id === action.payload.id ? { ...todo, text: action.payload.text, done: action.payload.done, edit: action.payload.edit } : todo
+          todo.id === action.payload.id ? { ...todo, text: action.payload.text, edit: action.payload.edit } : todo
         );
       case 'HEART':
         console.log("HEART")

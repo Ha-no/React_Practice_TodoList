@@ -58,7 +58,7 @@ const Text = styled.div`
     `}
 `;
 
-function TodoItem({ id, done, text, heart }) {
+function TodoItem({ id, done, text, heart, edit }) {
 
   const [ open, setOpen ] = useState(false);
   const [ value, setValue ] = useState(text);
@@ -79,7 +79,6 @@ function TodoItem({ id, done, text, heart }) {
         payload: {
           id: id,
           text: value,
-          done: done,
           edit: false
         }
       })

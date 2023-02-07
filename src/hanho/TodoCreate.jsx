@@ -96,7 +96,7 @@ function TodoCreate() {
         id: nextId.current,
         text: value,
         done: false,
-        edit: flase,
+        edit: false,
         heart: 0
         }
     });
