@@ -1,28 +1,34 @@
 import React, { useReducer, createContext, useContext, useRef } from 'react';
+import TodoItem from './TodoItem';
 
 const initialTodos = [
   {
     id: 1,
     text: 'Create Project',
     done: true,
-    edit: false
+    edit: false,
+    heart: 0
   },
   {
     id: 2,
     text: 'Styling Component',
     done: true,
-    edit: false
+    edit: false,
+    heart: 0
   },
   {
     id: 3,
     text: 'Create Context',
     done: false,
-    edit: false
+    edit: false,
+    heart: 0
   },
   {
     id: 4,
     text: 'Imple Function',
-    done: false
+    done: false,
+    edit: false,
+    heart: 0
   }
 ];
 
@@ -44,6 +50,11 @@ function todoReducer(state, action) {
       return state.map(todo =>
         todo.id === action.payload.id ? { ...todo, text: action.payload.text, done: action.payload.done, edit: action.payload.edit } : todo
       );
+    case 'HEART':
+      console.log("HEART")
+      return state.map( todo =>
+        todo.id === action.payload.id ? { ...todo, heart: action.payload.heart } : todo  
+      )
     case 'REMOVE':
       return state.filter(todo => todo.id !== action.id);
     default:

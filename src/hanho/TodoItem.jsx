@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import { MdDone, MdDelete } from 'react-icons/md';
-import { useTodoDispatch } from './TodoProvider';
+import { useTodoDispatch } from './TodoContext';
 
 const Remove = styled.div`
   display: flex;
@@ -58,10 +58,11 @@ const Text = styled.div`
     `}
 `;
 
-function TodoItem({ id, done, text, edit }) {
+function TodoItem({ id, done, text, heart }) {
 
   const [ open, setOpen ] = useState(false);
   const [ value, setValue ] = useState(text);
+  const [ ht, setHeart ] = useState(heart);
 
   const dispatch = useTodoDispatch();
   const onToggle = () => dispatch({ type: 'TOGGLE', id });
@@ -87,6 +88,18 @@ function TodoItem({ id, done, text, edit }) {
       setValue( e.target.value )
     }
   }
+  const onHeart = () => {
+
+    setHeart( ht + 1 )
+
+    dispatch({ 
+      type: 'HEART',
+      payload: {
+        heart: ht,
+        id: id
+      }
+    })
+  }
 
   return (
     <TodoItemBlock>
@@ -100,6 +113,10 @@ function TodoItem({ id, done, text, edit }) {
             <input onChange={onChange} onKeyDown={onSubmit} value={value} />
           </div>
       )}
+      <div>
+        <p>{ ht }</p>
+        <button onClick={onHeart}> ❤ </button>
+      </div>
       <Remove onClick={onRemove}>
         <MdDelete />
       </Remove>
